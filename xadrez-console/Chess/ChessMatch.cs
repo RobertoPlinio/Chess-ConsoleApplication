@@ -32,12 +32,39 @@ namespace Chess
         }
 
         void PlaceInitialPieces() {
-            PlacePiece(new King(board, Color.Black), 'a', 8);
-            PlacePiece(new Rook(board, Color.Black), 'b', 8);
+            PlacePiece(new Rook(board, Color.Black), 'a', 8);
+            PlacePiece(new Knight(board, Color.Black), 'b', 8);
+            PlacePiece(new Bishop(board, Color.Black), 'c', 8);
+            PlacePiece(new Queen(board, Color.Black), 'd', 8);
+            PlacePiece(new King(board, Color.Black), 'e', 8);
+            PlacePiece(new Bishop(board, Color.Black), 'f', 8);
+            PlacePiece(new Knight(board, Color.Black), 'g', 8);
+            PlacePiece(new Rook(board, Color.Black), 'h', 8);
+            PlacePiece(new Pawn(board, Color.Black), 'a', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'b', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'c', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'd', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'e', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'f', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'g', 7);
+            PlacePiece(new Pawn(board, Color.Black), 'h', 7);
 
-            PlacePiece(new Rook(board, Color.White), 'c', 1);
-            PlacePiece(new King(board, Color.White), 'd', 1);
-            PlacePiece(new Rook(board, Color.White), 'h', 7);
+            PlacePiece(new Rook(board, Color.White), 'a', 1);
+            PlacePiece(new Knight(board, Color.White), 'b', 1);
+            PlacePiece(new Bishop(board, Color.White), 'c', 1);
+            PlacePiece(new Queen(board, Color.White), 'd', 1);
+            PlacePiece(new King(board, Color.White), 'e', 1);
+            PlacePiece(new Bishop(board, Color.White), 'f', 1);
+            PlacePiece(new Knight(board, Color.White), 'g', 1);
+            PlacePiece(new Rook(board, Color.White), 'h', 1);
+            PlacePiece(new Pawn(board, Color.White), 'a', 2);
+            PlacePiece(new Pawn(board, Color.White), 'b', 2);
+            PlacePiece(new Pawn(board, Color.White), 'c', 2);
+            PlacePiece(new Pawn(board, Color.White), 'd', 2);
+            PlacePiece(new Pawn(board, Color.White), 'e', 2);
+            PlacePiece(new Pawn(board, Color.White), 'f', 2);
+            PlacePiece(new Pawn(board, Color.White), 'g', 2);
+            PlacePiece(new Pawn(board, Color.White), 'h', 2);
         }
 
         public void ValidateOriginPosition(ChessPosition pos) => ValidateOriginPosition(pos.ToPosition());
