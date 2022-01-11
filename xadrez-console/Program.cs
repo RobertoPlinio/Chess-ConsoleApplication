@@ -12,12 +12,7 @@ namespace xadrez_console
 
                 while (!match.Finished) {
                     try {
-                        Screen.PrintBoard(match.board);
-
-                        Console.WriteLine($"\nTurn: {match.turn}");
-                        Console.Write($"Waiting for player ");
-                        Screen.TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
-                        Console.WriteLine();
+                        Screen.PrintMatch(match);
 
                         Console.Write("\nOrigin: ");
                         ChessPosition origin = Screen.ReadPositionInput();

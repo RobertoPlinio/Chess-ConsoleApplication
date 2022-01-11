@@ -6,6 +6,35 @@ namespace ChessBoard
 {
     class Screen
     {
+        public static void PrintMatch(ChessMatch match) {
+            PrintBoard(match.board);
+
+            PrintCapturedPieces(match);
+
+            Console.WriteLine($"\nTurn: {match.turn}");
+            Console.Write($"Waiting for player ");
+            TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
+            Console.WriteLine();
+        }
+
+        public static void PrintCapturedPieces(ChessMatch match) {
+            Console.WriteLine("\nCaptured Pieces");
+            Console.Write("Whites ");
+            PrintCapturedPiecesByColor(match, Color.White);
+            Console.Write("Black ");
+            PrintCapturedPiecesByColor(match, Color.Black);
+        }
+
+        public static void PrintCapturedPiecesByColor(ChessMatch match, Color color) {
+            HashSet<Piece> set = match.GetCapturedPiecesByColor(color);
+            TextAccordingToPlayerColor(color, "[");
+            foreach(Piece p in set) {
+                TextAccordingToPlayerColor(color, $"{p} ");
+            }
+            TextAccordingToPlayerColor(color, "]");
+            Console.WriteLine();
+        }
+
         public static void PrintBoard(Board board) {
             Console.Clear();
             for (int i = 0; i < board.Rows; i++) {
