@@ -15,6 +15,7 @@ namespace ChessBoard
             Console.Write($"Waiting for player ");
             TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
             Console.WriteLine();
+            if (match.check) Console.WriteLine("YOU'RE IN CHECK");
         }
 
         public static void PrintCapturedPieces(ChessMatch match) {

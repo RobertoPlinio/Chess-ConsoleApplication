@@ -20,6 +20,7 @@ namespace ChessBoard
         }
 
         public void IncrementMove() => moveCount++;
+        public void DecrementMove() => moveCount--;
 
         public bool MoveAvailable() {
             bool[,] possibleMoves = PossibleMoves();
