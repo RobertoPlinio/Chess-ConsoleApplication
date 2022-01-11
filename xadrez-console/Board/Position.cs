@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chess;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,6 +17,10 @@ namespace ChessBoard
         public void SetValues(int row, int column) {
             Row = row;
             Column = column;
+        }
+
+        public ChessPosition ToChessPosition() {
+            return new ChessPosition(Convert.ToChar(Column + 97), 8-Row);
         }
 
         public override string ToString() {

@@ -48,10 +48,17 @@ namespace ChessBoard
                 return;
             }
 
+            TextAccordingToPlayerColor(piece.color, $"{piece}");
+
+            
+            Console.Write($" ");
+        }
+
+        public static void TextAccordingToPlayerColor(Color color, string text) {
             ConsoleColor foreColor = Console.ForegroundColor;
             ConsoleColor backColor = Console.BackgroundColor;
 
-            switch (piece.color) {
+            switch (color) {
                 case Color.Black:
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     break;
@@ -72,11 +79,10 @@ namespace ChessBoard
                     break;
             }
 
-            Console.Write($"{piece}");
+            Console.Write(text);
 
             Console.ForegroundColor = foreColor;
             Console.BackgroundColor = backColor;
-            Console.Write($" ");
         }
     }
 }

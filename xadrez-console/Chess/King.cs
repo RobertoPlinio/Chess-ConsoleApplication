@@ -5,7 +5,9 @@ namespace Chess
     class King : Piece
     {
 
-        public King(Board board, Color color) : base(board, color) { }
+        public King(Board board, Color color) : base(board, color) {
+            Name = "King";
+        }
 
         public override bool[,] PossibleMoves() {
             bool[,] moves = new bool[board.Rows, board.Columns];

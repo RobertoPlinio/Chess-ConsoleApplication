@@ -11,18 +11,31 @@ namespace xadrez_console
                 ChessMatch match = new ChessMatch();
 
                 while (!match.Finished) {
-                    Screen.PrintBoard(match.board);
+                    try {
+                        Screen.PrintBoard(match.board);
 
-                    Console.Write("Origin: ");
-                    ChessPosition origin = Screen.ReadPositionInput();
+                        Console.WriteLine($"\nTurn: {match.turn}");
+                        Console.Write($"Waiting for player ");
+                        Screen.TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
+                        Console.WriteLine();
 
-                    bool[,] moves = match.board.GetPiece(origin.ToPosition()).PossibleMoves();
-                    Screen.PrintBoard(match.board, moves);
+                        Console.Write("\nOrigin: ");
+                        ChessPosition origin = Screen.ReadPositionInput();
+                        match.ValidateOriginPosition(origin);
 
-                    Console.Write("\nDestination: ");
-                    ChessPosition destination = Screen.ReadPositionInput();
+                        bool[,] moves = match.board.GetPiece(origin.ToPosition()).PossibleMoves();
+                        Screen.PrintBoard(match.board, moves);
 
-                    match.ExecuteMove(origin.ToPosition(), destination.ToPosition());
+                        Console.Write("\nDestination: ");
+                        ChessPosition destination = Screen.ReadPositionInput();
+                        match.ValidateDestinationPosition(origin, destination);
+
+                        match.Move(origin.ToPosition(), destination.ToPosition());
+                    }
+                    catch(BoardException be) {
+                        Console.WriteLine($"{be.Message}\n\nPress enter to continue");
+                        Console.ReadLine();
+                    }
                 }
             }
             catch(BoardException be) {

@@ -5,7 +5,9 @@ namespace Chess
     class Rook : Piece
     {
 
-        public Rook(Board board, Color color) : base(board, color) { }
+        public Rook(Board board, Color color) : base(board, color) {
+            Name = "Rook";
+        }
 
         public override bool[,] PossibleMoves() {
             bool[,] moves = new bool[board.Rows, board.Columns];

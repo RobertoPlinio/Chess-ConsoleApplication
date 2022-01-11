@@ -10,6 +10,7 @@ namespace ChessBoard
         public Color color { get; protected set; }
         public int moveCount { get; protected set; }
         public Board board { get; protected set; }
+        public string Name { get; set; }
 
         public Piece(Board board, Color color) {
             this.position = null;
@@ -19,6 +20,20 @@ namespace ChessBoard
         }
 
         public void IncrementMove() => moveCount++;
+
+        public bool MoveAvailable() {
+            bool[,] possibleMoves = PossibleMoves();
+            for (int i = 0; i < board.Columns; i++) {
+                for (int j = 0; j < board.Rows; j++) {
+                    if (possibleMoves[j, i]) return true;
+                }
+            }
+            return false;
+        }
+
+        public bool MoveToAvailable(Position destination) {
+            return PossibleMoves()[destination.Row, destination.Column];
+        }
 
         public abstract bool[,] PossibleMoves();
 
