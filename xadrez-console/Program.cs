@@ -14,6 +14,12 @@ namespace xadrez_console
                 board.PositionPiece(new Queen(board, Color.Black), new Position(1, 3));
                 board.PositionPiece(new King(board, Color.Black), new Position(2,4));
 
+                board.PositionPiece(new Bishop(board, Color.White), new Position(7, 7));
+                board.PositionPiece(new Knight(board, Color.Blue), new Position(5, 3));
+                board.PositionPiece(new Pawn(board, Color.Red), new Position(1, 6));
+                board.PositionPiece(new Pawn(board, Color.Pink), new Position(3, 3));
+                board.PositionPiece(new Pawn(board, Color.Yellow), new Position(4, 6));
+
                 Screen.PrintBoard(board);
             }
             catch(BoardException be) {

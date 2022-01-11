@@ -12,8 +12,6 @@ namespace ChessBoard
         Red,
         Yellow,
         Green,
-        Orange,
-        Purple,
         Pink
     }
 }
