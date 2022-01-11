@@ -17,5 +17,7 @@ namespace ChessBoard
             this.color = color;
             moveCount = 0;
         }
+
+        public void IncrementMove() => moveCount++;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Chess;
 
 namespace ChessBoard
 {
@@ -16,7 +16,12 @@ namespace ChessBoard
                 Console.WriteLine();
             }
 
-            Console.WriteLine(" a b c d e f g h");
+            Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static ChessPosition ReadPositionInput() {
+            string input = Console.ReadLine();
+            return new ChessPosition(input[0], int.Parse($"{input[1]} ")); //Workaround since int.Parse(input[1]) is invalid
         }
 
         public static void PrintPiece(Piece piece) {

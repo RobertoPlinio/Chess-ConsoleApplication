@@ -25,10 +25,18 @@ namespace ChessBoard
             return GetPiece(pos) != null;
         }
 
-        public void PositionPiece (Piece piece, Position pos) {
+        public void PlacePiece (Piece piece, Position pos) {
             if (PieceExists(pos)) throw new BoardException($"Position occupied by another piece! ({pos})");
             pieces[pos.Row, pos.Column] = piece;
             piece.position = pos;
+        }
+
+        public Piece RemovePiece(Position pos) {
+            if (!PieceExists(pos)) return null;
+
+            Piece temp = GetPiece(pos);
+            pieces[pos.Row, pos.Column] = null;
+            return temp;
         }
 
         public void ValidatePosition(Position pos) {
