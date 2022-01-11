@@ -19,6 +19,11 @@ namespace xadrez_console
             catch(BoardException be) {
                 Console.WriteLine(be.Message);
             }
+
+            Console.WriteLine("\nTesting chess position");
+            ChessPosition cp = new ChessPosition('c', 7);
+            Console.WriteLine(cp);
+            Console.WriteLine(cp.ToPosition());
         }
     }
 }
