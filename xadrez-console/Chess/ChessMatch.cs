@@ -50,7 +50,7 @@ namespace Chess
 
         public void ValidateDestinationPosition(ChessPosition origin, ChessPosition destination) => ValidateDestinationPosition(origin.ToPosition(), destination.ToPosition());
         public void ValidateDestinationPosition(Position origin, Position destination) {
-            if (!board.GetPiece(origin).MoveToAvailable(destination)) throw new BoardException($"Invalid destination position!" +
+            if (!board.GetPiece(origin).IsMovePossible(destination)) throw new BoardException($"Invalid destination position!" +
                 $" ({board.GetPiece(origin).Name} to {destination.ToChessPosition()})");
         }
 

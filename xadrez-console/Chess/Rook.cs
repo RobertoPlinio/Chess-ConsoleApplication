@@ -15,7 +15,7 @@ namespace Chess
 
             // N
             pos.SetValues(position.Row - 1, position.Column);
-            while(board.IsPositionValid(pos) && CanMove(pos)) {
+            while(board.IsPositionValid(pos) && CanMoveToPos(pos)) {
                 moves[pos.Row, pos.Column] = true;
                 Piece p = board.GetPiece(pos);
                 if (p != null && p.color != color) break;
@@ -24,7 +24,7 @@ namespace Chess
 
             // E
             pos.SetValues(position.Row, position.Column + 1);
-            while (board.IsPositionValid(pos) && CanMove(pos)) {
+            while (board.IsPositionValid(pos) && CanMoveToPos(pos)) {
                 moves[pos.Row, pos.Column] = true;
                 Piece p = board.GetPiece(pos);
                 if (p != null && p.color != color) break;
@@ -33,7 +33,7 @@ namespace Chess
 
             // S
             pos.SetValues(position.Row + 1, position.Column);
-            while (board.IsPositionValid(pos) && CanMove(pos)) {
+            while (board.IsPositionValid(pos) && CanMoveToPos(pos)) {
                 moves[pos.Row, pos.Column] = true;
                 Piece p = board.GetPiece(pos);
                 if (p != null && p.color != color) break;
@@ -42,7 +42,7 @@ namespace Chess
 
             // W
             pos.SetValues(position.Row, position.Column - 1);
-            while (board.IsPositionValid(pos) && CanMove(pos)) {
+            while (board.IsPositionValid(pos) && CanMoveToPos(pos)) {
                 moves[pos.Row, pos.Column] = true;
                 Piece p = board.GetPiece(pos);
                 if (p != null && p.color != color) break;

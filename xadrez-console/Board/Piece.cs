@@ -32,13 +32,13 @@ namespace ChessBoard
             return false;
         }
 
-        public bool MoveToAvailable(Position destination) {
+        public bool IsMovePossible(Position destination) {
             return PossibleMoves()[destination.Row, destination.Column];
         }
 
         public abstract bool[,] PossibleMoves();
 
-        protected bool CanMove(Position pos) {
+        protected bool CanMoveToPos(Position pos) {
             Piece p = board.GetPiece(pos);
             return p == null || p.color != color;
         }
