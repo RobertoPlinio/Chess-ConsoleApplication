@@ -12,10 +12,16 @@ namespace ChessBoard
             PrintCapturedPieces(match);
 
             Console.WriteLine($"\nTurn: {match.turn}");
-            Console.Write($"Waiting for player ");
-            TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
-            Console.WriteLine();
-            if (match.check) Console.WriteLine("YOU'RE IN CHECK");
+
+            if (match.Finished) {
+                Console.WriteLine("\nCHECK MATE!");
+                Console.WriteLine($"Winner: {match.currentPlayer}");
+            } else {
+                Console.Write($"Waiting for player ");
+                TextAccordingToPlayerColor(match.currentPlayer, $"{match.currentPlayer}");
+                Console.WriteLine();
+                if (match.check) Console.WriteLine("YOU'RE IN CHECK");
+            }
         }
 
         public static void PrintCapturedPieces(ChessMatch match) {

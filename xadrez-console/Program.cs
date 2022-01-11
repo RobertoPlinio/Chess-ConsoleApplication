@@ -32,15 +32,12 @@ namespace xadrez_console
                         Console.ReadLine();
                     }
                 }
+
+                Screen.PrintMatch(match);
             }
             catch(BoardException be) {
                 Console.WriteLine(be.Message);
             }
-
-            Console.WriteLine("\nTesting chess position");
-            ChessPosition cp = new ChessPosition('c', 7);
-            Console.WriteLine(cp);
-            Console.WriteLine(cp.ToPosition());
         }
     }
 }

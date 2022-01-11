@@ -32,19 +32,12 @@ namespace Chess
         }
 
         void PlaceInitialPieces() {
-            PlacePiece(new Rook(board, Color.White), 'c', 1);
-            PlacePiece(new Rook(board, Color.White), 'c', 2);
-            PlacePiece(new King(board, Color.White), 'd', 1);
-            PlacePiece(new Rook(board, Color.White), 'd', 2);
-            PlacePiece(new Rook(board, Color.White), 'e', 1);
-            PlacePiece(new Rook(board, Color.White), 'e', 2);
+            PlacePiece(new King(board, Color.Black), 'a', 8);
+            PlacePiece(new Rook(board, Color.Black), 'b', 8);
 
-            PlacePiece(new Rook(board, Color.Black), 'c', 7);
-            PlacePiece(new Rook(board, Color.Black), 'c', 8);
-            PlacePiece(new Rook(board, Color.Black), 'd', 7);
-            PlacePiece(new King(board, Color.Black), 'd', 8);
-            PlacePiece(new Rook(board, Color.Black), 'e', 7);
-            PlacePiece(new Rook(board, Color.Black), 'e', 8);
+            PlacePiece(new Rook(board, Color.White), 'c', 1);
+            PlacePiece(new King(board, Color.White), 'd', 1);
+            PlacePiece(new Rook(board, Color.White), 'h', 7);
         }
 
         public void ValidateOriginPosition(ChessPosition pos) => ValidateOriginPosition(pos.ToPosition());
@@ -71,8 +64,12 @@ namespace Chess
 
             check = IsInCheck(Adversary(currentPlayer));
 
-            turn++;
-            ChangeCurrentPlayer();
+            if (IsInCheckMate(Adversary(currentPlayer))) {
+                Finished = true;
+            } else {
+                turn++;
+                ChangeCurrentPlayer();
+            }
         }
 
         public HashSet<Piece> GetCapturedPiecesByColor(Color color) {
@@ -98,6 +95,29 @@ namespace Chess
             }
 
             return false;
+        }
+
+        public bool IsInCheckMate(Color color) {
+            if (!IsInCheck(color)) return false;
+
+            //Will simulate every possible move for every piece alive to see if check can be negated
+            foreach(Piece p in GetAlivePiecesByColor(color)) {
+                bool[,] possibleMoves = p.PossibleMoves();
+                for (int i = 0; i < board.Rows; i++) {
+                    for (int j = 0; j < board.Columns; j++) {
+                        if(possibleMoves[i,j]) {
+                            Position origin = p.position;
+                            Position destination = new Position(i, j);
+                            Piece cachedPiece = ExecuteMove(origin, destination);
+                            bool isInCheck = IsInCheck(color);
+                            UndoMove(origin, destination, cachedPiece);
+                            if (!isInCheck) return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void ChangeCurrentPlayer() {
