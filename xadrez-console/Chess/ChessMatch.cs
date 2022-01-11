@@ -92,6 +92,18 @@ namespace Chess
                 throw new BoardException("You can't put yourself in Check!");
             }
 
+            //#SpecialMove Promotion
+            Piece p = board.GetPiece(destination);
+            if(p is Pawn) {
+                int targetRow = p.color == Color.Black ? 7 : 0;
+                if(destination.Row == targetRow) {
+                    p = board.RemovePiece(destination);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(board, p.color);
+                    board.PlacePiece(queen, destination);
+                }
+            }
+
             check = IsInCheck(Adversary(currentPlayer));
 
             if (IsInCheckMate(Adversary(currentPlayer))) {
@@ -102,7 +114,6 @@ namespace Chess
             }
 
             //#SpecialMove EnPassant
-            Piece p = board.GetPiece(destination);
             if (p is Pawn && MathF.Abs(origin.Row - destination.Row) > 1) {
                 enPassantVulnerable = p;
             } else enPassantVulnerable = null;
