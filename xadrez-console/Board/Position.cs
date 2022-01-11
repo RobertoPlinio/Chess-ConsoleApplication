@@ -10,6 +10,10 @@ namespace ChessBoard
         public int Column { get; set; }
 
         public Position(int row, int column) {
+            SetValues(row, column);
+        }
+
+        public void SetValues(int row, int column) {
             Row = row;
             Column = column;
         }

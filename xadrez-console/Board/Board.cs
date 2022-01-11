@@ -44,7 +44,7 @@ namespace ChessBoard
         }
 
         public bool IsPositionValid(Position pos) {
-            if (pos.Row < 0 || pos.Column < 0 || pos.Row > Rows || pos.Column > Columns) return false;
+            if (pos.Row < 0 || pos.Column < 0 || pos.Row >= Rows || pos.Column >= Columns) return false;
             return true;
         }
     }

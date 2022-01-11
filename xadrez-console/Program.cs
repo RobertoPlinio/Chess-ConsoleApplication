@@ -11,12 +11,15 @@ namespace xadrez_console
                 ChessMatch match = new ChessMatch();
 
                 while (!match.Finished) {
-                    Console.Clear();
                     Screen.PrintBoard(match.board);
 
                     Console.Write("Origin: ");
                     ChessPosition origin = Screen.ReadPositionInput();
-                    Console.Write("Destination: ");
+
+                    bool[,] moves = match.board.GetPiece(origin.ToPosition()).PossibleMoves();
+                    Screen.PrintBoard(match.board, moves);
+
+                    Console.Write("\nDestination: ");
                     ChessPosition destination = Screen.ReadPositionInput();
 
                     match.ExecuteMove(origin.ToPosition(), destination.ToPosition());
