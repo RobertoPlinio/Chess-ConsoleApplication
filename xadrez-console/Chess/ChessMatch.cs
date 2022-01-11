@@ -36,7 +36,7 @@ namespace Chess
             PlacePiece(new Knight(board, Color.Black), 'b', 8);
             PlacePiece(new Bishop(board, Color.Black), 'c', 8);
             PlacePiece(new Queen(board, Color.Black), 'd', 8);
-            PlacePiece(new King(board, Color.Black), 'e', 8);
+            PlacePiece(new King(board, Color.Black, this), 'e', 8);
             PlacePiece(new Bishop(board, Color.Black), 'f', 8);
             PlacePiece(new Knight(board, Color.Black), 'g', 8);
             PlacePiece(new Rook(board, Color.Black), 'h', 8);
@@ -53,7 +53,7 @@ namespace Chess
             PlacePiece(new Knight(board, Color.White), 'b', 1);
             PlacePiece(new Bishop(board, Color.White), 'c', 1);
             PlacePiece(new Queen(board, Color.White), 'd', 1);
-            PlacePiece(new King(board, Color.White), 'e', 1);
+            PlacePiece(new King(board, Color.White, this), 'e', 1);
             PlacePiece(new Bishop(board, Color.White), 'f', 1);
             PlacePiece(new Knight(board, Color.White), 'g', 1);
             PlacePiece(new Rook(board, Color.White), 'h', 1);
@@ -128,11 +128,11 @@ namespace Chess
             if (!IsInCheck(color)) return false;
 
             //Will simulate every possible move for every piece alive to see if check can be negated
-            foreach(Piece p in GetAlivePiecesByColor(color)) {
+            foreach (Piece p in GetAlivePiecesByColor(color)) {
                 bool[,] possibleMoves = p.PossibleMoves();
                 for (int i = 0; i < board.Rows; i++) {
                     for (int j = 0; j < board.Columns; j++) {
-                        if(possibleMoves[i,j]) {
+                        if (possibleMoves[i, j]) {
                             Position origin = p.position;
                             Position destination = new Position(i, j);
                             Piece cachedPiece = ExecuteMove(origin, destination);
@@ -158,6 +158,31 @@ namespace Chess
             Piece capturedPiece = board.RemovePiece(destination);
             board.PlacePiece(movedPiece, destination);
             if (capturedPiece != null) capturedPieces.Add(capturedPiece);
+
+            //#SpecialMove Castle
+            if (movedPiece is King && MathF.Abs(origin.Column - destination.Column) > 1) {
+                Piece rook;
+                Position originRook, destinationRook;
+
+                if (destination.Column == 6) {
+                    //King Side
+                    originRook = new Position(origin.Row, 7);
+                    destinationRook = new Position(origin.Row, 5);
+
+                    rook = board.RemovePiece(originRook);
+                    board.PlacePiece(rook, destinationRook);
+                    rook.IncrementMove();
+                } else if (destination.Column == 2) {
+                    //Queen Side
+                    originRook = new Position(origin.Row, 0);
+                    destinationRook = new Position(origin.Row, 3);
+
+                    rook = board.RemovePiece(originRook);
+                    board.PlacePiece(rook, destinationRook);
+                    rook.IncrementMove();
+                }
+            }
+
             return capturedPiece;
         }
 
@@ -171,6 +196,30 @@ namespace Chess
             }
 
             board.PlacePiece(p, origin);
+
+            //#SpecialMove Castle
+            if (p is King && MathF.Abs(origin.Column - destination.Column) > 1) {
+                Piece rook;
+                Position originRook, destinationRook;
+
+                if (destination.Column == 6) {
+                    //King Side
+                    originRook = new Position(origin.Row, 5);
+                    destinationRook = new Position(origin.Row, 7);
+
+                    rook = board.RemovePiece(originRook);
+                    board.PlacePiece(rook, destinationRook);
+                    rook.DecrementMove();
+                } else if (destination.Column == 2) {
+                    //Queen Side
+                    originRook = new Position(origin.Row, 3);
+                    destinationRook = new Position(origin.Row, 0);
+
+                    rook = board.RemovePiece(originRook);
+                    board.PlacePiece(rook, destinationRook);
+                    rook.DecrementMove();
+                }
+            }
         }
 
         private Color Adversary(Color color) {
