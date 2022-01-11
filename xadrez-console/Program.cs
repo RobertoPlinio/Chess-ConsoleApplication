@@ -7,13 +7,18 @@ namespace xadrez_console
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(8, 8);
+            try {
+                Board board = new Board(8, 8);
 
-            board.PositionPiece(new Rook(board, Color.Black), new Position(0, 0));
-            board.PositionPiece(new Queen(board, Color.Black), new Position(1, 3));
-            board.PositionPiece(new King(board, Color.Black), new Position(2, 4));
+                board.PositionPiece(new Rook(board, Color.Black), new Position(0, 0));
+                board.PositionPiece(new Queen(board, Color.Black), new Position(1, 3));
+                board.PositionPiece(new King(board, Color.Black), new Position(2,4));
 
-            Screen.PrintBoard(board);
+                Screen.PrintBoard(board);
+            }
+            catch(BoardException be) {
+                Console.WriteLine(be.Message);
+            }
         }
     }
 }
