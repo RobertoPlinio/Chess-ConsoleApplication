@@ -16,5 +16,7 @@ namespace ChessBoard
             Columns = columns;
             pieces = new Piece[rows, columns];
         }
+
+        public Piece GetPiece(int row, int column) => pieces[row, column];
     }
 }
