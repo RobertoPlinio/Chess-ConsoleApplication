@@ -18,5 +18,10 @@ namespace ChessBoard
         }
 
         public Piece GetPiece(int row, int column) => pieces[row, column];
+
+        public void PositionPiece (Piece piece, Position pos) {
+            pieces[pos.Row, pos.Column] = piece;
+            piece.position = pos;
+        }
     }
 }
